@@ -1,1 +1,1 @@
-# jenkins-example-liquibase
+# liquibase-poc
