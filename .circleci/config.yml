@@ -17,11 +17,10 @@ jobs:
             echo "Installing liquibase dependencies..."
             ls -lah && pwd
             ls -lah ./liquibase/
-            apt-get -qq update -y && apt-get -qq install -y wget tar
+            apt-get -qq update -y && apt-get -qq install -y wget tar            
+            cd ./liquibase && mkdir liquibase && cd liquibase
             wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
-            mkdir ./liquibase/liquibase
-            mv liquibase-4.10.0.tar.gz ./liquibase/liquibase
-            tar -xvzf ./liquibase/liquibase/liquibase-4.10.0.tar.gz
+            tar -xvzf liquibase-4.10.0.tar.gz            
             mv $CIRCLE_WORKING_DIRECTORY/liquibase/liquibase /opt/
             ls -lah /opt/liquibase
             export PATH=$PATH:/opt/liquibase/
