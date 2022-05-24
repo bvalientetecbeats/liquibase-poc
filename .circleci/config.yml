@@ -3,11 +3,12 @@ jobs:
   update-database-dev:
     working_directory: /tmp/project/
     docker:
-      - image: circleci/python
+      - image: $AWS_ACCOUNT_DEV.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cicdtools:base-latest
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID_DEV
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY_DEV
     steps:
-      - checkout
-      - setup_remote_docker:
-          version: 20.10.14        
+      - checkout     
       - run:
           name: Update RDS DB with Liquibase
           command: |
@@ -17,7 +18,13 @@ jobs:
             echo "Updating DataBase..."
             ls -lah && pwd
             ls -lah ./liquibase/
-            docker run --rm -v $CIRCLE_WORKING_DIRECTORY/liquibase/:/liquibase/ liquibase/liquibase --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/poclb" --changeLogFile=app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=postgresql-42.3.5.jar status
+            wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
+            mkdir /opt/liquibase
+            mv liquibase-4.10.0.tar.gz /opt/liquibase
+            tar -xvzf /opt/liquibase-4.10.0.tar.gz
+            export PATH=$PATH:/opt/liquibase/
+            liquibase -version
+            #docker run --rm -v $CIRCLE_WORKING_DIRECTORY/liquibase/:/liquibase/ liquibase/liquibase --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/poclb" --changeLogFile=app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=postgresql-42.3.5.jar status
       - persist_to_workspace:
           root: .
           paths:
