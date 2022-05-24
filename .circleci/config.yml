@@ -21,7 +21,7 @@ jobs:
             wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
             mkdir ./liquibase/liquibase
             mv liquibase-4.10.0.tar.gz ./liquibase/liquibase
-            tar -xvzf ./liquibase/liquibaseliquibase-4.10.0.tar.gz
+            tar -xvzf ./liquibase/liquibase/liquibase-4.10.0.tar.gz
             mv $CIRCLE_WORKING_DIRECTORY/liquibase/liquibase /opt/
             ls -lah /opt/liquibase
             export PATH=$PATH:/opt/liquibase/
