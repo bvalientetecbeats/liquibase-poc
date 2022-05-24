@@ -1,5 +1,6 @@
 --liquibase formatted sql
---changeset devpsql:1-1
+--changeset devops-psql:1-1
 --comment: insert new value to table data
 INSERT INTO data (first_name, last_name, role) VALUES ('Ben', 'Tecbeats', 'DevOps');
---
+INSERT INTO data (first_name, last_name, role) VALUES ('Ihab', 'Level Goals', 'IT');
+--rollback SQL STATEMENT

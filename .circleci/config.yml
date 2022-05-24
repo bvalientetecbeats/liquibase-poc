@@ -27,8 +27,7 @@ jobs:
             liquibase -version
             echo "Updating DataBase..."
             ls -lah $CIRCLE_WORKING_DIRECTORY/liquibase/ && cd $CIRCLE_WORKING_DIRECTORY/liquibase/
-            liquibase update --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/$VAR_RDS_DB_DEV" --changeLogFile=app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=postgresql-42.3.5.jar
-            #docker run --rm -v $CIRCLE_WORKING_DIRECTORY/liquibase/:/liquibase/ liquibase/liquibase --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/poclb" --changeLogFile=app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=postgresql-42.3.5.jar status
+            liquibase status --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/$VAR_RDS_DB_DEV" --changeLogFile=app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=postgresql-42.3.5.jar
       - persist_to_workspace:
           root: .
           paths:
