@@ -17,7 +17,7 @@ jobs:
             echo "Installing liquibase dependencies..."
             ls -lah && pwd
             ls -lah ./liquibase/
-            apt-get -qq update -y && apt-get -qq install -y wget tar            
+            apt-get -qq update -y && apt-get -qq install -y wget tar default-jre       
             cd ./liquibase && mkdir liquibase && cd liquibase
             wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
             tar -xvzf liquibase-4.10.0.tar.gz            
