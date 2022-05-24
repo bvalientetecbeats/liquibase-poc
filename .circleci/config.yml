@@ -12,20 +12,7 @@ jobs:
           name: Update RDS DB with Liquibase
           command: |
             set -e
-            echo "Getting started with Docker image build..."
-            echo "Installing dependencies..."
-            AWS_PAGER=''
-            apt-get -qq update -y && apt-get -qq install -y curl unzip
-            echo "Configuring AWS CLI 2..."
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip -qq awscliv2.zip
-            ./aws/install
-            aws --version
-            echo "Setting up AWS credentials..."
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_DEV
-            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_DEV
-            aws configure set default.region $AWS_DEFAULT_REGION
-            aws s3 ls
+            echo "Getting started with Update RDS DB with Liquibase..."
             echo "Updating DataBase..."
             ls -lah && pwd
             docker run --network=host --rm -v ./liquibase/:/liquibase/changelog -v ./liquibase/:/liquibase/classpath liquibase/liquibase --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/poclb" --changeLogFile=changelog/app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=classpath/postgresql-42.3.5.jar status
