@@ -21,8 +21,8 @@ jobs:
             wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
             mkdir /opt/liquibase
             mv liquibase-4.10.0.tar.gz /opt/liquibase
+            tar -xvzf /opt/liquibase/liquibase-4.10.0.tar.gz
             ls -lah /opt/liquibase
-            tar -xvzf /opt/liquibase-4.10.0.tar.gz
             export PATH=$PATH:/opt/liquibase/
             liquibase -version
             echo "Updating DataBase..."
