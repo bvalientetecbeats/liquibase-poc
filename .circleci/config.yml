@@ -19,9 +19,10 @@ jobs:
             ls -lah ./liquibase/
             apt-get -qq update -y && apt-get -qq install -y wget tar
             wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
-            mkdir /opt/liquibase
-            mv liquibase-4.10.0.tar.gz /opt/liquibase
-            tar -xvzf /opt/liquibase/liquibase-4.10.0.tar.gz
+            mkdir liquibase
+            mv liquibase-4.10.0.tar.gz ./liquibase
+            tar -xvzf ./liquibase/liquibase-4.10.0.tar.gz
+            mv $CIRCLE_WORKING_DIRECTORY/liquibase /opt/
             ls -lah /opt/liquibase
             export PATH=$PATH:/opt/liquibase/
             liquibase -version
