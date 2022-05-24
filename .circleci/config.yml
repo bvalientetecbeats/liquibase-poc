@@ -13,17 +13,18 @@ jobs:
           name: Update RDS DB with Liquibase
           command: |
             set -e
-            echo "Setting up environment..."
             echo "Getting started with Update RDS DB with Liquibase..."
-            echo "Updating DataBase..."
+            echo "Installing liquibase dependencies..."
             ls -lah && pwd
             ls -lah ./liquibase/
+            apt-get -qq update -y && apt-get -qq install -y wget tar
             wget https://github.com/liquibase/liquibase/releases/download/v4.10.0/liquibase-4.10.0.tar.gz
             mkdir /opt/liquibase
             mv liquibase-4.10.0.tar.gz /opt/liquibase
             tar -xvzf /opt/liquibase-4.10.0.tar.gz
             export PATH=$PATH:/opt/liquibase/
             liquibase -version
+            echo "Updating DataBase..."
             #docker run --rm -v $CIRCLE_WORKING_DIRECTORY/liquibase/:/liquibase/ liquibase/liquibase --url="jdbc:postgresql://$VAR_RDS_ENDPOINT_DEV:5432/poclb" --changeLogFile=app-wrapper.xml --username=$TFVAR_DBUSER_DEV --password=$TFVAR_DBPASSWORD_DEV --classpath=postgresql-42.3.5.jar status
       - persist_to_workspace:
           root: .
